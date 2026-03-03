@@ -101,8 +101,8 @@
 								"exec": [
 									"let jsondata = pm.response.json()\r",
 									"\r",
-									"pm.test(\"login successful\", function() {\r",
-									"    pm.expect(jsondata.message).to.equal(\"Login successful\")\r",
+									"pm.test(\"new user wallet is 1000 by default\", function() {\r",
+									"    pm.expect(jsondata.balance).to.equal(1000.0)\r",
 									"})"
 								],
 								"type": "text/javascript",
