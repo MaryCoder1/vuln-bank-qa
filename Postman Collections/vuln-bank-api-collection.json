@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "75a8bdcf-93a7-48ff-be05-e35e0ae95bee",
+		"name": "Vulnerable bank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "End to end testing",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c2ad2bb7-1ba0-4eec-883c-17ae739213b0",
+								"exec": [
+									"let jsondata = pm.response.json()\r",
+									"\r",
+									"pm.test(\"balance of a newly created user is 1000 by default\", function() {\r",
+									"    pm.expect(jsondata.debug_data.balance).to.equal(1000)\r",
+									"})\r",
+									"\r",
+									"pm.environment.set(\"username\",jsondata.debug_data.username)\r",
+									"pm.environment.get(\"username\")"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "30342ec1-ff61-4288-af1d-369045aa0953",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"{{$randomUserName}}\",\r\n  \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/register"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "36c81c4f-636d-4dbf-97c8-be45f47e7b09",
+								"exec": [
+									"let jsondata = pm.response.json()\r",
+									"\r",
+									"pm.test(\"login successful\", function() {\r",
+									"    pm.expect(jsondata.message).to.equal(\"Login successful\")\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "0efdead5-44e8-43f0-a64c-052d62eae395",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"testuser2\",\r\n  \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Wallet balance check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "36c81c4f-636d-4dbf-97c8-be45f47e7b09",
+								"exec": [
+									"let jsondata = pm.response.json()\r",
+									"\r",
+									"pm.test(\"login successful\", function() {\r",
+									"    pm.expect(jsondata.message).to.equal(\"Login successful\")\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "88ad94ce-3bbe-4141-8040-300457c57e90",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"testuser2\",\r\n  \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/check_balance/{{account_number}}"
+					},
+					"response": []
+				}
+			],
+			"id": "c70ec7b6-6682-4c10-b447-e2609dbda5d8"
+		}
+	]
+}
